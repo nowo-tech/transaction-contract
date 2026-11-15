@@ -25,7 +25,10 @@ namespace Nowo\TransactionContract;
  * storage may have rolled back or aborted the whole transaction. Only the outermost run() may replay the operation.
  * The inner failure propagates (a transient one as TransientStorageFailure) and the caller's transaction may already
  * have been ended by the storage: after such a failure the caller must not assume its transaction is still open
- * (guard a rollback with "is a transaction active", or let the failure reach the outermost runner).
+ * (guard a rollback with "is a transaction active", or let the failure reach the outermost runner). A nested run
+ * shares the caller's unit of work, so keeping "nothing pending" after its failure may discard the caller's own
+ * pending changes too (an ORM runner clears the shared manager): after catching a failure from a nested run(), the
+ * caller must not continue the same unit of work; let the failure propagate, or re-load and redo the work.
  *
  * Implementations must hold no per-call state, so that one instance can serve every request of a long-running
  * worker.

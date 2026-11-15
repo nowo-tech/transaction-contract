@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Target 1.0.1 (docs only).
+
+### Documentation
+
+- Nesting note: a nested run shares the caller's unit of work, so its failure may discard the caller's pending
+  changes too; after catching a failure from a nested `run()` the caller must not continue the same unit of work
+  (transaction-doctrine QA-TD11-M2).
+
 ## [1.0.0] - 2026-11-15
 
 ### Added
