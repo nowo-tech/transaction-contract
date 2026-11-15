@@ -58,13 +58,24 @@ final readonly class PayOrderHandler
 |---------|------|
 | `run(callable $operation): mixed` | Runs the operation in one transaction the runner opens and commits (an ORM-backed runner flushes first) and returns what the operation returned. |
 | Replays | The runner **may run the operation more than once** after a transient failure. Load what you change inside the callable; keep mails, messages and events until `run()` has returned. |
-| Transient failure | Deadlock, lock wait timeout, serialization failure, lost connection: when the runner does not, or may no longer, retry, it throws `TransientStorageFailure` with the storage error as `previous`. |
+| Transient failure | Deadlock, lock wait timeout, serialization failure: when the runner does not, or may no longer, retry, it throws `TransientStorageFailure` with the storage error as `previous`. A failure whose outcome is unknown (connection lost during the commit) is **not** transient: replaying it could apply the operation twice. |
 | Other failures | Rethrown unchanged. |
 | Clean exit | When `run()` returns or throws, the runner has left no transaction of its own open. |
+| Nothing pending after a failure | When `run()` throws, no change made by the operation is pending in the backing unit of work: an ORM runner clears the manager, or closes and resets it. A later flush, `run()` or request never commits part of a failed unit of work. Do not keep using entities loaded before a failed `run()` as managed objects. |
+| Nesting | Inside a transaction the caller (or an outer runner) opened, `run()` does not retry: the storage may have ended the whole transaction. Only the outermost `run()` replays. The failure propagates, and the caller's transaction may already be gone: never `catch { rollBack(); }` blindly; check that a transaction is active, or let the failure reach the outermost runner. |
 | Worker mode | Implementations hold no per-call state: one instance serves every request of a long-running worker (FrankenPHP worker mode, RoadRunner, Messenger consumers). |
 
 `TransientStorageFailure`'s message is generic on purpose. The storage error, which can contain SQL and parameters,
-stays in `getPrevious()`, for the logs only.
+stays in `getPrevious()`, for the logs only. Never render the exception's string form (`(string) $e`, the trace) to a
+client: it includes the previous chain.
+
+## Backward-compatibility promise (1.x)
+
+- The `TransactionRunnerInterface::run()` signature and the contract above are frozen for 1.x; only clarifications
+  that no conforming implementation violates are added.
+- `TransientStorageFailure`'s constructor parameter order (`retryAfterSeconds`, `message`, `previous`),
+  `fromPrevious()`, `retryAfterSeconds()` and `DEFAULT_MESSAGE` are frozen for 1.x. The class is not final:
+  subclasses are allowed and keep being caught as `TransientStorageFailure`.
 
 ## What is here
 
