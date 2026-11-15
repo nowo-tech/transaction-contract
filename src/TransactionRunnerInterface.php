@@ -17,6 +17,15 @@ namespace Nowo\TransactionContract;
  * - When the storage fails transiently and the runner does not (or may no longer) retry, run() throws
  *   TransientStorageFailure. Any other failure of the operation is rethrown unchanged.
  * - When run() returns or throws, the runner has left no transaction of its own open.
+ * - When run() throws, no change made by the operation is pending in the backing unit of work: an ORM-backed runner
+ *   clears the object manager, or closes it and resets it. A later flush, run() or request never commits part of a
+ *   failed unit of work. A caller must not keep using entities it loaded before a failed run() as managed objects.
+ *
+ * Nesting: run() called inside a transaction the caller (or an outer runner) opened is not retried, because the
+ * storage may have rolled back or aborted the whole transaction. Only the outermost run() may replay the operation.
+ * The inner failure propagates (a transient one as TransientStorageFailure) and the caller's transaction may already
+ * have been ended by the storage: after such a failure the caller must not assume its transaction is still open
+ * (guard a rollback with "is a transaction active", or let the failure reach the outermost runner).
  *
  * Implementations must hold no per-call state, so that one instance can serve every request of a long-running
  * worker.
@@ -31,7 +40,7 @@ interface TransactionRunnerInterface
      *
      * @param callable(): T $operation The unit of work; replayable
      *
-     * @throws TransientStorageFailure When the storage failed transiently and the operation was not completed
+     * @throws TransientStorageFailure When the storage failed transiently and the operation was not completed (nothing of it is pending)
      *
      * @return T What the operation returned
      */
