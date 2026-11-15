@@ -8,11 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.0.1] - 2026-11-15](#101---2026-11-15)
 - [[1.0.0] - 2026-11-15](#100---2026-11-15)
 
 ## [Unreleased]
 
-Target 1.0.1 (docs only).
+## [1.0.1] - 2026-11-15
 
 ### Documentation
 
@@ -40,5 +41,6 @@ Target 1.0.1 (docs only).
 
 - `README`, `docs/CONTRIBUTING.md`, `docs/SECURITY.md` and `CODE_OF_CONDUCT.md` (REQ-DOCS-003).
 
-[Unreleased]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/nowo-tech/transaction-contract/releases/tag/v1.0.0
