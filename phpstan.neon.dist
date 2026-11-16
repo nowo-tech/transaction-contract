@@ -1,8 +1,15 @@
 # PHPStan configuration for Transaction Contract (PHP 8.2+, no framework).
+# REQ-CS-005: FrankenPHP classic + worker rulesets (nowo-tech/phpstan-frankenphp, require-dev only).
 
 parameters:
     level: 8
     paths:
         - src
         - tests
+    ignoreErrors: []
     reportUnmatchedIgnoredErrors: false
+
+includes:
+    - vendor/nowo-tech/phpstan-frankenphp/extension.neon
+    - vendor/nowo-tech/phpstan-frankenphp/ruleset-classic.neon
+    - vendor/nowo-tech/phpstan-frankenphp/ruleset-worker.neon

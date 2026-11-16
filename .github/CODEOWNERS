@@ -1,0 +1,7 @@
+# Code Owners for TransactionContract (Nowo framework-free contract)
+
+* @HecFranco
+
+/.github/ @HecFranco
+/src/ @HecFranco
+/tests/ @HecFranco

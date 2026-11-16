@@ -10,6 +10,7 @@ beyond PHP.
 - [Quality gates](#quality-gates)
 - [Backward compatibility](#backward-compatibility)
 - [Commits and pull requests](#commits-and-pull-requests)
+- [Cursor Agent chat](#cursor-agent-chat)
 
 ## What belongs here
 
@@ -22,9 +23,13 @@ If a change would add a `require` entry, it is almost certainly in the wrong rep
 ## Getting started
 
 ```bash
-composer install
-composer qa          # cs-check + phpstan + test
+make setup-hooks     # once: installs .githooks (commit-msg strips AI co-author trailers, REQ-GIT-001)
+make up              # PHP 8.2 dev container (Docker)
+make qa              # cs-check + phpstan + test
+make release-check   # the full chain before a release (REQ-MAKE-002)
 ```
+
+Without Docker, the same gates run with `composer install && composer qa`.
 
 ## Quality gates
 
@@ -32,7 +37,8 @@ composer qa          # cs-check + phpstan + test
 - `composer phpstan` — level 8, empty `ignoreErrors`.
 - `composer test` — PHPUnit; `composer test-coverage` must stay at 100% of lines and methods (CI enforces it).
 - `composer rector-dry` — Rector, no pending changes.
-- `composer validate --strict`.
+- `composer igor` — Igor worker-state audit (REQ-CS-008).
+- `composer validate --strict` and `composer audit`.
 
 CI runs the tests on PHP 8.2–8.5 plus PHPStan and the style check; all must pass.
 
@@ -49,6 +55,18 @@ Every element here is public API for packages released independently of this one
 ## Commits and pull requests
 
 - Conventional commit subjects (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`).
-- No AI co-author trailers of any kind (REQ-GIT-001).
+- No AI co-author trailers of any kind (REQ-GIT-001). Run `make setup-hooks` before your first commit, and
+  `make check-no-cursor-coauthor` after the release commit and **before** `git push`.
 - One topic per pull request, with the changelog entry in the same pull request.
 - `main` is protected: pull request plus green CI, no force-push, no deletion (REQ-GIT-002).
+
+## Cursor Agent chat
+
+Submit with **Ctrl+Enter** (macOS: **⌘+Enter**) so Enter inserts a newline, and queue follow-up messages instead of
+interrupting the running agent:
+
+```json
+{
+  "cursor.composer.queueMessageDefaultBehavior": "queue"
+}
+```

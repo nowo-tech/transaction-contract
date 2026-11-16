@@ -9,6 +9,7 @@ Security posture of `nowo-tech/transaction-contract`.
 - [Attack surface](#attack-surface)
 - [Information disclosure](#information-disclosure)
 - [Dependencies and update policy](#dependencies-and-update-policy)
+- [Release security checklist (12.4.1)](#release-security-checklist-1241)
 
 ## Scope
 
@@ -38,3 +39,16 @@ it must never show `getPrevious()`. Adapters must not put storage details in the
 tooling (PHPUnit, PHPStan, PHP-CS-Fixer, Rector) is `require-dev` and never ships: `.gitattributes` marks
 `tests/`, `.github/` and every tooling config `export-ignore`, so the distributed archive contains only `src/`,
 `LICENSE`, `README.md`, `composer.json` and `docs/CHANGELOG.md`.
+
+## Release security checklist (12.4.1)
+
+| Item | Status (1.0.x) |
+| --- | --- |
+| `docs/SECURITY.md` and `.github/SECURITY.md` present | ✅ |
+| `.env` files ignored; no secrets in the repository | ✅ |
+| Safe defaults | ✅ (no configuration, no I/O) |
+| Input validation | ✅ (`retryAfterSeconds` must be null or ≥ 0) |
+| `composer audit` clean | ✅ (CI) |
+| No secrets / personal data in logs | ✅ (no logging; the previous exception is kept, its message is not copied) |
+| Cryptography, permissions, limits | — (none) |
+| REQ-SEC-004 AI audit recorded | ✅ (`BUNDLES_SECURITY_ANALYSIS.md` Appendix QA) |

@@ -1,7 +1,8 @@
 # Transaction Contract
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![PHP](https://img.shields.io/badge/php-%3E%3D8.2-777bb3.svg)](https://www.php.net/)
+[![CI](https://github.com/nowo-tech/transaction-contract/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/transaction-contract/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/transaction-contract.svg?style=flat)](https://packagist.org/packages/nowo-tech/transaction-contract) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/transaction-contract.svg)](https://packagist.org/packages/nowo-tech/transaction-contract) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/transaction-contract.svg?style=social&label=Star)](https://github.com/nowo-tech/transaction-contract) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
+
+> ⭐ **Found this useful?** [Install from Packagist](https://packagist.org/packages/nowo-tech/transaction-contract) · Give it a **star** on [GitHub](https://github.com/nowo-tech/transaction-contract) so more developers can find it.
 
 A framework-free **transaction port** for application and domain code: `TransactionRunnerInterface::run(callable)`
 and the `TransientStorageFailure` exception, which carries a Retry-After hint. Interfaces and one exception only:
@@ -12,6 +13,10 @@ binds an adapter, for example the one shipped by
 [`nowo-tech/doctrine-deadlock-retry-bundle`](https://github.com/nowo-tech/DoctrineDeadlockRetryBundle) 3.x, which
 retries deadlocks, lock wait timeouts and serialization failures with backoff and repairs the connection after a
 failure.
+
+![FrankenPHP friendly](docs/images/frankenphp-friendly.png)
+
+This package is **FrankenPHP worker mode friendly**.
 
 ## Installation
 
@@ -86,10 +91,30 @@ client: it includes the previous chain.
 
 ## Documentation
 
-- [Changelog](docs/CHANGELOG.md)
+- [Installation](docs/INSTALLATION.md)
+- [Configuration](docs/CONFIGURATION.md)
+- [Usage](docs/USAGE.md)
 - [Contributing](docs/CONTRIBUTING.md)
-- [Security](docs/SECURITY.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Changelog](docs/CHANGELOG.md)
+- [Upgrading](docs/UPGRADING.md)
+- [Release](docs/RELEASE.md)
+- [Security](docs/SECURITY.md)
+- [Engram](docs/ENGRAM.md)
+- [Spec-driven development](docs/SPEC-DRIVEN-DEVELOPMENT.md)
+- [GitHub Spec Kit](docs/SPEC-KIT.md)
+
+### Additional documentation
+
+- [PSR evaluation (REQ-CS-007)](docs/PSR.md)
+- [Branching](docs/BRANCHING.md)
+
+## Tests and coverage
+
+- Tests: PHPUnit (`tests/Unit`), CI on PHP 8.2–8.5
+- PHP: 100% (6/6 lines and 3/3 methods in CI; gate `make test-coverage-100`)
+- TS/JS: N/A
+- Python: N/A
 
 ## License
 

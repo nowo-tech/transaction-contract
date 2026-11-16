@@ -7,6 +7,20 @@ on:
     branches: [main, master]
 
 jobs:
+  git-hygiene:
+    name: Git history (no agent co-author)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check for Cursor / Claude co-author trailers (REQ-GIT-001)
+        run: |
+          chmod +x .scripts/check-no-cursor-coauthor.sh .scripts/check-no-claude-coauthor.sh
+          ./.scripts/check-no-cursor-coauthor.sh HEAD
+
   test:
     name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
@@ -60,8 +74,17 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress --no-interaction
 
-      - name: PHPStan
+      - name: Composer audit (REQ-SEC-002)
+        run: composer audit --locked
+
+      - name: PHPStan (level 8 + FrankenPHP classic/worker rulesets, REQ-CS-005)
         run: vendor/bin/phpstan analyse --memory-limit=512M --no-progress
+
+      - name: Rector (dry run)
+        run: vendor/bin/rector process --dry-run --no-progress-bar
+
+      - name: Igor worker-state audit (REQ-CS-008)
+        run: composer igor
 
   code-style:
     name: Code style
