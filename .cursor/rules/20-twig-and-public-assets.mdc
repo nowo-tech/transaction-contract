@@ -1,0 +1,6 @@
+---
+description: Templates and public assets (not applicable to this library)
+alwaysApply: false
+---
+
+- This library ships no Twig templates, translations or public assets. Do not add any; presentation belongs to the adapters' bundles.

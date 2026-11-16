@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Org scaffold (REQ compliance sweep 2026-11-16): docs base set (INSTALLATION, CONFIGURATION, USAGE, UPGRADING, RELEASE, ENGRAM, SPEC-DRIVEN-DEVELOPMENT, SPEC-KIT, PSR), release security checklist, Spec Kit baseline `specs/001-baseline` (2/2 files), README badges / Found this useful / Tests and coverage, `.cursor` rules + MCP, `.github` templates, CODEOWNERS, SECURITY policy, Dependabot, PR lint, stale, release and sync-releases workflows; Makefile + Docker dev container, `.githooks` and the co-author checks (CI `git-hygiene` job); PHPStan FrankenPHP classic + worker rulesets, Igor, Rector and `composer audit` in CI; tests moved to `tests/Unit`. No change to `src/`.
+
 ## [1.0.1] - 2026-11-15
 
 ### Documentation

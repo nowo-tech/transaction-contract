@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nowo\TransactionContract\Tests;
+namespace Nowo\TransactionContract\Tests\Unit;
 
 use InvalidArgumentException;
 use LogicException;

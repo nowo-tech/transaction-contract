@@ -35,6 +35,8 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
+        "igor-php/igor-php": "^0.10.0",
+        "nowo-tech/phpstan-frankenphp": "^1.4",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^10.0 || ^11.0",
@@ -69,7 +71,13 @@
             "@phpstan",
             "@test"
         ],
-        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --colors=always --coverage-text --coverage-clover coverage.xml"
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --colors=always --coverage-text --coverage-clover coverage.xml",
+        "igor": "igor-php --no-agent .",
+        "rector": "rector process",
+        "test-coverage-100": [
+            "@test-coverage",
+            "php -r '$m = simplexml_load_file(\"coverage.xml\")->project->metrics; $s = (int) $m[\"statements\"]; $c = (int) $m[\"coveredstatements\"]; echo \"lines $c/$s\\n\"; exit($s > 0 && $c === $s ? 0 : 1);'"
+        ]
     },
     "scripts-descriptions": {
         "test": "Run PHPUnit tests",
@@ -78,11 +86,29 @@
         "phpstan": "Run PHPStan static analysis",
         "rector-dry": "Run Rector in dry-run mode",
         "qa": "Run all quality assurance checks",
-        "test-coverage": "Run PHPUnit with code coverage"
+        "test-coverage": "Run PHPUnit with code coverage",
+        "igor": "Run the Igor worker-state audit (REQ-CS-008)",
+        "rector": "Apply Rector refactoring",
+        "test-coverage-100": "Fail below 100% line coverage of src/"
     },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0.x-dev"
         }
+    },
+    "archive": {
+        "exclude": [
+            "/demo",
+            "/.cursor",
+            "/.github",
+            "/.githooks",
+            "/.scripts",
+            "/.specify",
+            "/specs",
+            "/tests",
+            "/docker-compose.yml",
+            "/Dockerfile",
+            "/Makefile"
+        ]
     }
 }

@@ -1,0 +1,13 @@
+---
+description: PHP rules for the transaction contract library
+globs:
+  - "src/**/*.php"
+  - "tests/**/*.php"
+alwaysApply: false
+---
+
+- Target PHP `>=8.2 <8.6` (see `composer.json`). No runtime dependency beyond PHP: no Symfony, no Doctrine, no PSR packages in `require`.
+- `src/` holds the public contract only: `TransactionRunnerInterface` and `TransientStorageFailure`. Adding or changing a public signature is a SemVer decision (README "Backward-compatibility promise").
+- Every PHP file starts with `declare(strict_types=1);`. Keep classes small, typed and immutable (readonly properties).
+- No mutable static state (FrankenPHP worker mode, kernel reset false): PHPStan FrankenPHP rulesets and `composer igor` must stay clean.
+- Adapters (Doctrine, Symfony) live in other packages (`nowo-tech/transaction-doctrine`, `nowo-tech/doctrine-deadlock-retry-bundle`), never here.
