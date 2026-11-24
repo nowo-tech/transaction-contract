@@ -22,6 +22,15 @@ changing the namespace only:
 | `Nowo\TransactionDoctrine\WriteUnit\LockConflictExceptionInterface` | `Nowo\TransactionContract\LockConflictExceptionInterface` |
 | `ConflictCode::forFailure()` / `ConflictCode::forRequest()` | `Nowo\TransactionDoctrine\ConflictCodeResolver::forFailure()` / `forRequest()` (returns the contract enum) |
 
+- **Require both:** a bundle that names the contract types must require `nowo-tech/transaction-contract: ^1.1`
+  **and** `nowo-tech/transaction-doctrine: ^1.10` (when it uses transaction-doctrine at all). With transaction-doctrine
+  <= 1.9 the old and new types are different classes: a contract `ConcurrencyConflict(committed: true)` would not be
+  seen by its resolver and would be answered `CONFLICT_001` (retried, a double write). transaction-contract 1.1
+  declares `conflict: nowo-tech/transaction-doctrine <1.10` so Composer refuses that mix.
+- **Compare codes by meaning, not by identity:** use `$code->retrySafe()` or `$code->value`, never
+  `=== ConflictCode::Committed` across the two enums (`Nowo\TransactionDoctrine\ConflictCode::Committed !==
+  Nowo\TransactionContract\ConflictCode::Committed`).
+
 `Nowo\TransactionDoctrine\ConflictCode` is the one type that is not an alias (it keeps its Doctrine / Symfony
 helpers): convert with `->toContract()` / `ConflictCode::fromContract()`, or compare values. transaction-doctrine's
 `ConflictResponsePolicy::headersFor()` / `httpExceptionFor()` and `ConflictResponseContext` accept both enums.

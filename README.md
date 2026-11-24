@@ -97,7 +97,8 @@ savepoint) and the HTTP answer stay in the adapter: with
 **Migrating a bundle:** replace `use Nowo\TransactionDoctrine\{ConflictCode, TransientFailureKind,
 WriteUnit\ConcurrencyConflict, WriteUnit\LockConflictExceptionInterface}` by `use Nowo\TransactionContract\…` (same
 short names), and `ConflictCode::forFailure()` / `forRequest()` by `ConflictCodeResolver::forFailure()` /
-`forRequest()`. See [UPGRADING](docs/UPGRADING.md#to-110).
+`forRequest()`. Require `nowo-tech/transaction-doctrine: ^1.10` as well (1.1 conflicts with older versions) and compare
+codes with `->retrySafe()` or `->value`. See [UPGRADING](docs/UPGRADING.md#to-110).
 
 ## The contract
 

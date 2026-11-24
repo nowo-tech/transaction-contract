@@ -21,7 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `TransientFailureKind` (`Deadlock`, `LockWaitTimeout`, `SerializationFailure`, `Retryable`),
   `LockConflictExceptionInterface` and `ConcurrencyConflict` (final, extends `TransientStorageFailure`). Names, values
   and semantics are those of transaction-doctrine 1.9; transaction-doctrine 1.10 aliases its old names to these types.
-  No dependency added: still PHP only.
+  No dependency added: still PHP only. `conflict: nowo-tech/transaction-doctrine <1.10`: with an older
+  transaction-doctrine the old and new types are separate classes, so a contract `ConcurrencyConflict` with
+  `committed: true` would be answered `CONFLICT_001` (audit ZAU-M1).
 
 ### Documentation
 
