@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Framework-free conflict types (REQ-RUNTIME-003 rule 6), so a bundle's `Domain` / `Contract` layer can expose its
+  conflict exception without depending on transaction-doctrine (REQ-ARCH-002 / Deptrac): `ConflictCode` (enum
+  `RetrySafe` = `CONFLICT_001`, `Committed` = `CONFLICT_002`, constants `RETRY_SAFE` / `COMMITTED`, `retrySafe()`),
+  `TransientFailureKind` (`Deadlock`, `LockWaitTimeout`, `SerializationFailure`, `Retryable`),
+  `LockConflictExceptionInterface` and `ConcurrencyConflict` (final, extends `TransientStorageFailure`). Names, values
+  and semantics are those of transaction-doctrine 1.9; transaction-doctrine 1.10 aliases its old names to these types.
+  No dependency added: still PHP only.
+
 ### Documentation
 
 - Org scaffold (REQ compliance sweep 2026-11-16): docs base set (INSTALLATION, CONFIGURATION, USAGE, UPGRADING, RELEASE, ENGRAM, SPEC-DRIVEN-DEVELOPMENT, SPEC-KIT, PSR), release security checklist, Spec Kit baseline `specs/001-baseline` (2/2 files), README badges / Found this useful / Tests and coverage, `.cursor` rules + MCP, `.github` templates, CODEOWNERS, SECURITY policy, Dependabot, PR lint, stale, release and sync-releases workflows; Makefile + Docker dev container, `.githooks` and the co-author checks (CI `git-hygiene` job); PHPStan FrankenPHP classic + worker rulesets, Igor, Rector and `composer audit` in CI; tests moved to `tests/Unit`. No change to `src/`.

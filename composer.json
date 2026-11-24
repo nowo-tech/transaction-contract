@@ -1,6 +1,6 @@
 {
     "name": "nowo-tech/transaction-contract",
-    "description": "Framework-free transaction port: TransactionRunnerInterface::run(callable) and the TransientStorageFailure exception with a Retry-After hint. No dependencies beyond PHP: no Symfony, no Doctrine.",
+    "description": "Framework-free transaction port: TransactionRunnerInterface::run(callable), the TransientStorageFailure exception with a Retry-After hint, and the conflict types (ConflictCode, TransientFailureKind, ConcurrencyConflict, LockConflictExceptionInterface). No dependencies beyond PHP: no Symfony, no Doctrine.",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -93,7 +93,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.0.x-dev"
+            "dev-main": "1.1.x-dev"
         }
     },
     "archive": {
