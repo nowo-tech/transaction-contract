@@ -8,10 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.1.0] - 2026-11-24](#110---2026-11-24)
 - [[1.0.1] - 2026-11-15](#101---2026-11-15)
 - [[1.0.0] - 2026-11-15](#100---2026-11-15)
 
 ## [Unreleased]
+
+## [1.1.0] - 2026-11-24
 
 ### Added
 
@@ -57,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `README`, `docs/CONTRIBUTING.md`, `docs/SECURITY.md` and `CODE_OF_CONDUCT.md` (REQ-DOCS-003).
 
-[Unreleased]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/transaction-contract/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/nowo-tech/transaction-contract/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/nowo-tech/transaction-contract/releases/tag/v1.0.0
