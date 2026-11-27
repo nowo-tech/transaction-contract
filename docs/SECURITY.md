@@ -35,7 +35,7 @@ it must never show `getPrevious()`. Adapters must not put storage details in the
 
 ## Dependencies and update policy
 
-`require` is `php: >=8.2 <8.6` and nothing else, so there is no third-party supply chain to track. Development
+`require` is `php: >=8.2 <8.7` and nothing else, so there is no third-party supply chain to track. Development
 tooling (PHPUnit, PHPStan, PHP-CS-Fixer, Rector) is `require-dev` and never ships: `.gitattributes` marks
 `tests/`, `.github/` and every tooling config `export-ignore`, so the distributed archive contains only `src/`,
 `LICENSE`, `README.md`, `composer.json` and `docs/CHANGELOG.md`.
